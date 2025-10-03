@@ -21,7 +21,18 @@ test("Login with page object", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
   await loginPage.emailInput.fill("customer@practicesoftwaretesting.com");
+  await page.getByTestId('email').click({
+    button: 'right'
+  });
+  await page.getByTestId('email').fill('customer@practicesoftwaretesting.com');
   await loginPage.passwordInput.fill("welcome01");
+  await page.getByTestId('password').click();
+  await page.getByTestId('password').click({
+    button: 'right'
+  });
+  await page.getByTestId('password').fill('welcome01');
+  await page.getByTestId('login-submit').click();
+  await page.getByTestId('nav-menu').click();
   await loginPage.loginButton.click();
   await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
 });
