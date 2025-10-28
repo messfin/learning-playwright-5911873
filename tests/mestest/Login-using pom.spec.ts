@@ -7,7 +7,8 @@ test("User can log in using pom", async ({ page }) => {
   await loginPage.goto();
   await loginPage.login("customer@practicesoftwaretesting.com", "welcome01");
   await expect(page.locator('[data-test="nav-menu"]')).toContainText(
-      "Jane Doe"
+    "Jane Doe"
   );
   
-});
+    });
+ 

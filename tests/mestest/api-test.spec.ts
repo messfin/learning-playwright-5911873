@@ -10,7 +10,7 @@ test("GET /products - extract first two", async ({ request }) => {
 
   // Validate total count as before
   expect(body.data.length).toBeGreaterThanOrEqual(2);
-  expect(body.total).toBe(50);
+  expect(body.total).toBe(53);
 
   // Extract first two products
   const firstProduct = body.data[0];

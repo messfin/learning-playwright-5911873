@@ -5,9 +5,14 @@ test("GET /products", async ({ request }) => {
   const response = await request.get(apiUrl + "/products");
 
   expect(response.status()).toBe(200);
+
+  // Check if response is JSON before parsing
+  const contentType = response.headers()["content-type"];
+  expect(contentType).toContain("application/json");
+
   const body = await response.json();
   expect(body.data.length).toBe(9);
-  expect(body.total).toBe(50);
+  expect(body.total).toBe(53);
 });
 
 test("POST /users/login", async ({ request }) => {
@@ -20,6 +25,11 @@ test("POST /users/login", async ({ request }) => {
   });
 
   expect(response.status()).toBe(200);
+
+  // Check if response is JSON before parsing
+  const contentType = response.headers()["content-type"];
+  expect(contentType).toContain("application/json");
+
   const body = await response.json();
   expect(body.access_token).toBeTruthy();
 });

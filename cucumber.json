@@ -1,0 +1,7 @@
+{
+  "default": {
+    "require": ["testsm/loginsteps/**/*.ts", "tests/mestest/features/**/*.ts"],
+    "paths": ["tests/mestest/features/**/*.feature"],
+    "requireModule": ["ts-node/register"]
+  }
+}

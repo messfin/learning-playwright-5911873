@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fix: "require() cannot be used on an ESM graph with top-level await"</title>
+</head>
+<body>
+<h1>Fix: "require() cannot be used on an ESM graph with top-level await"</h1>
+
+<h2>Summary</h2>
+<p>A Playwright test file (<code>tests/test-1.spec.ts</code>) contained <code>await</code> expressions at the top-level (outside of any async function). Top-level <code>await</code> makes Node treat the module as ESM, but the test runner and some transforms in this repo expect CommonJS/<code>require()</code> loading. This caused the runtime error:</p>
+
+<blockquote>
+<p>"Error: require() cannot be used on an ESM graph with top-level await. Use import() instead."</p>
+</blockquote>
+
+<h2>Root cause</h2>
+<ul>
+<li><code>await</code> was used outside the <code>test(...)</code> callback, which is a top-level await.</li>
+<li>When Node sees top-level await it marks the module as ESM-only. The rest of the test tooling (and the Playwright transformer) attempted to <code>require()</code> the file under CommonJS which fails when the module graph contains a top-level await.</li>
+</ul>
+
+<h2>What I changed</h2>
+<p>File modified:</p>
+<ul>
+<li><code>tests/test-1.spec.ts</code></li>
+</ul>
+
+<p>Change summary:</p>
+<ul>
+<li>Moved all <code>await</code> calls into the <code>async ({ page }) =&gt; { ... }</code> test function body.</li>
+<li>Removed any standalone top-level <code>await</code> expressions.</li>
+<li>Gave the test a descriptive name and added brief comments for clarity.</li>
+</ul>
+
+<p>This preserves the original interactions but ensures the file no longer contains top-level await, so it can be loaded via <code>require()</code>/CommonJS and run with the existing ts-node/Playwright setup.</p>
+
+<h2>Why this fixes the problem</h2>
+<p>Top-level <code>await</code> forces ESM semantics for the whole module. By removing top-level awaits and placing asynchronous actions inside the <code>async</code> test callback, the file remains compatible with CommonJS-style <code>require()</code> used by parts of the toolchain.</p>
+
+<h2>How I verified it</h2>
+<p>Run the single test file locally (PowerShell):</p>
+<pre><code>npx playwright test tests/test-1.spec.ts -j 1
+</code></pre>
+
+<p>Expected outcome: the test file loads and runs. In the environment where the fix was applied, the test run completed successfully (tests passed).</p>
+
+<h2>Suggested follow-ups</h2>
+<ul>
+<li>Search the <code>tests/</code> and <code>testsm/</code> folders for any other files that use top-level <code>await</code> and fix them similarly.</li>
+<li>Replace fragile <code>click()</code>-only interactions with <code>.fill()</code> and <code>expect()</code> assertions to make tests more robust and meaningful.</li>
+<li>Prefer stable selectors (data-test attributes) over auto-generated class names where possible.</li>
+<li>Add a CI check to fail early if a test file contains <code>await</code> outside an async function (optional lint rule or custom script).</li>
+</ul>
+
+<h2>Quick grep command to find top-level awaits in test files</h2>
+<pre><code>Select-String -Path "tests\**\*.ts","testsm\**\*.ts" -Pattern "^\s*await\s+" -List
+</code></pre>
+
+<p>This finds lines that start with <code>await</code> — not perfect, but it helps spot obvious top-level await usages.</p>
+
+<h2>Commit / PR</h2>
+<p>I edited <code>tests/test-1.spec.ts</code> and verified the tests run. If you want, I can:</p>
+<ul>
+<li>Create a dedicated branch and open a PR with the change and this document.</li>
+<li>Search and fix other top-level-await occurrences automatically.</li>
+</ul>
+
+<p>Let me know which follow-up you'd like next.</p>
+</body>
+</html>

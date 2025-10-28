@@ -1,0 +1,16 @@
+import { test, expect } from "@playwright/test";
+import { BagelShopHomePage } from "../lib/pages/bagel-shop/bagelpom.spec";
+
+export const test = base.test.extend<{
+  bagelShopHomePage: BagelShopHomePage;
+}>({
+  bagelShopHomePage: async ({ page }, use) => {
+    const homePage = new BagelShopHomePage(page);
+    await homePage.goto();
+    await use(homePage);
+  },
+});
+
+test("verify promo box visible", async ({ bagelShopHomePage }) => {
+  await expect(await bagelShopHomePage.promoBox.isVisible()).toBeTruthy();
+});

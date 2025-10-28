@@ -9,14 +9,23 @@
     "test:first": "npx playwright test --grep @first",
     "test:local": "BASE_URL=http://localhost:4200 npx playwright test",
     "test:report": "npx playwright test && npx playwright show-report",
-    "test:ui": "npx playwright test --ui"
+    "test:ui": "npx playwright test --ui",
+    "test:fus": "npx playwright test tests/fusionww",
+    "test:fus:headed": "HEADLESS=false npx playwright test tests/fusionww --project chromium"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@azure/identity": "^4.13.0",
+    "@azure/playwright": "^1.0.0",
+    "@cucumber/cucumber": "^11.3.0",
     "@playwright/test": "^1.55.1",
-    "@types/node": "^22.7.4",
-    "dotenv": "^16.4.5"
+    "@types/node": "^22.18.8",
+    "dotenv": "^16.6.1",
+    "multiple-cucumber-html-reporter": "^3.9.3"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
   }
 }

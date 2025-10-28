@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FusionWW Playwright Framework Documentation</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #333;
+        background: #fff;
+      }
+
+      h1 {
+        color: #2c3e50;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+      }
+
+      h2 {
+        color: #34495e;
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 5px;
+        margin-top: 40px;
+      }
+
+      h3 {
+        color: #2c3e50;
+        margin-top: 30px;
+      }
+
+      h4 {
+        color: #7f8c8d;
+        margin-top: 25px;
+      }
+
+      code {
+        background: #f8f9fa;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+        color: #e74c3c;
+      }
+
+      pre {
+        background: #2c3e50;
+        color: #ecf0f1;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 15px 0;
+      }
+
+      pre code {
+        background: none;
+        color: inherit;
+        padding: 0;
+      }
+
+      ul,
+      ol {
+        margin: 15px 0;
+        padding-left: 30px;
+      }
+
+      li {
+        margin: 8px 0;
+      }
+
+      blockquote {
+        border-left: 4px solid #3498db;
+        margin: 20px 0;
+        padding: 10px 20px;
+        background: #f8f9fa;
+        font-style: italic;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background: #3498db;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background: #f2f2f2;
+      }
+
+      .toc {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+
+      .toc ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .toc li {
+        margin: 5px 0;
+      }
+
+      .toc a {
+        text-decoration: none;
+        color: #3498db;
+      }
+
+      .toc a:hover {
+        text-decoration: underline;
+      }
+
+      .highlight {
+        background: #fff3cd;
+        padding: 15px;
+        border-left: 4px solid #ffc107;
+        margin: 20px 0;
+      }
+
+      .warning {
+        background: #f8d7da;
+        padding: 15px;
+        border-left: 4px solid #dc3545;
+        margin: 20px 0;
+      }
+
+      .success {
+        background: #d4edda;
+        padding: 15px;
+        border-left: 4px solid #28a745;
+        margin: 20px 0;
+      }
+
+      @media print {
+        body {
+          font-size: 12pt;
+          line-height: 1.4;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+          page-break-after: avoid;
+        }
+
+        pre,
+        blockquote {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>FusionWW Playwright Test Automation Framework</h1>
+    <p><strong>Complete Framework Documentation and User Guide</strong></p>
+
+    <hr />
+
+    <div class="toc">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#overview">1. Overview</a></li>
+        <li><a href="#project-structure">2. Project Structure</a></li>
+        <li><a href="#framework-architecture">3. Framework Architecture</a></li>
+        <li><a href="#getting-started">4. Getting Started</a></li>
+        <li>
+          <a href="#configuration-and-test-data"
+            >5. Configuration and Test Data</a
+          >
+        </li>
+        <li><a href="#test-execution">6. Test Execution</a></li>
+        <li>
+          <a href="#registration-flow-testing">7. Registration Flow Testing</a>
+        </li>
+        <li><a href="#best-practices">8. Best Practices</a></li>
+        <li><a href="#troubleshooting">9. Troubleshooting</a></li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <h2 id="overview">Overview</h2>
+    <p>
+      This project is a comprehensive test automation suite built using
+      Playwright for the FusionWW application. It provides automated testing
+      coverage for core functionalities including registration, login, and
+      homepage interactions. The framework follows industry best practices with
+      a structured Page Object Model architecture, reusable fixtures, and
+      modular test organization for enhanced maintainability and readability.
+    </p>
+
+    <h3>Key Features</h3>
+    <ul>
+      <li>
+        <strong>Page Object Model (POM)</strong>: Encapsulates page interactions
+        for better code reusability
+      </li>
+      <li>
+        <strong>Fixture-based Architecture</strong>: Provides consistent test
+        setup and teardown
+      </li>
+      <li>
+        <strong>TypeScript Support</strong>: Ensures type safety and enhanced
+        IDE support
+      </li>
+      <li>
+        <strong>CI/CD Integration</strong>: GitHub Actions workflows for
+        automated test execution
+      </li>
+      <li>
+        <strong>Console Error Monitoring</strong>: Automatic detection of
+        browser console errors
+      </li>
+      <li>
+        <strong>Environment Configuration</strong>: Flexible configuration
+        management across environments
+      </li>
+    </ul>
+
+    <hr />
+
+    <h2 id="project-structure">Project Structure</h2>
+    <pre><code>learning-playwright-5911873/
+├── documentation/          # Framework and test documentation
+│   └── registration-flow.md
+├── lib/
+│   ├── config/            # Environment configuration
+│   │   └── env.ts
+│   ├── fixtures/          # Test fixtures
+│   │   ├── base.fixture.ts
+│   │   ├── pages.fixture.ts
+│   │   ├── console.fixture.ts
+│   │   └── config.fixture.ts
+│   ├── helpers/           # Utility helpers
+│   ├── pages/             # Page Object Model classes
+│   │   └── fusionww/
+│   └── utils/             # Data utilities
+│       └── testData.ts
+├── tests/
+│   └── fusionww/          # FUS-1/2/3 test specifications
+├── .github/
+│   └── workflows/         # CI/CD pipeline definitions
+├── .env                   # Environment variables (not committed)
+├── package.json           # Project dependencies and scripts
+├── playwright.config.ts   # Playwright configuration
+└── tsconfig.json          # TypeScript configuration</code></pre>
+
+    <hr />
+
+    <h2 id="framework-architecture">Framework Architecture</h2>
+
+    <h3>Core Components</h3>
+
+    <h4>1. Fixtures</h4>
+    <p>
+      The framework implements a modular fixture architecture that provides
+      reusable test dependencies.
+    </p>
+    <ul>
+      <li>
+        <strong>base.fixture.ts</strong>: Central fixture merging page, console,
+        and config fixtures
+      </li>
+      <li>
+        <strong>pages.fixture.ts</strong>: Creates typed POM instances for each
+        test
+      </li>
+      <li>
+        <strong>console.fixture.ts</strong>: Collects console messages and
+        provides toHaveNoConsoleErrors matcher
+      </li>
+      <li>
+        <strong>config.fixture.ts</strong>: Provides config object from
+        environment variables
+      </li>
+    </ul>
+
+    <h4>2. Page Object Model</h4>
+    <p>
+      POMs in <code>lib/pages/fusionww</code> encapsulate page-specific locators
+      and expose semantic actions:
+    </p>
+    <ul>
+      <li>openRegistrationModal()</li>
+      <li>clickRegisterNow()</li>
+      <li>fillRegistrationForm()</li>
+      <li>acceptCookies()</li>
+      <li>verifyLandingPage()</li>
+    </ul>
+
+    <h4>3. Test Utilities</h4>
+    <p><strong>Test Data Generation</strong> (lib/utils/testData.ts):</p>
+    <ul>
+      <li>uniqueEmail(): Generates unique email addresses</li>
+      <li>randomString(): Creates random strings</li>
+      <li>readJson(): Reads test data from JSON files</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="getting-started">Getting Started</h2>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Node.js: Version 16.x or higher</li>
+      <li>npm: Node Package Manager</li>
+      <li>Git: Version control system</li>
+    </ul>
+
+    <h3>Installation</h3>
+    <ol>
+      <li>
+        Clone the repository:
+        <pre><code>git clone &lt;repository-url&gt;
+cd learning-playwright-5911873</code></pre>
+      </li>
+      <li>
+        Install dependencies:
+        <pre><code>npm ci</code></pre>
+      </li>
+      <li>
+        Install Playwright browsers:
+        <pre><code>npx playwright install</code></pre>
+      </li>
+      <li>
+        Configure environment - create <code>.env</code> file:
+        <pre><code>BASE_URL=https://www.fusionww.com/
+TEST_ENV=staging</code></pre>
+      </li>
+    </ol>
+
+    <hr />
+
+    <h2 id="configuration-and-test-data">Configuration and Test Data</h2>
+
+    <h3>Environment Configuration</h3>
+    <p>
+      <strong>lib/config/env.ts</strong> manages configuration using dotenv:
+    </p>
+    <ul>
+      <li>BASE_URL: Application base URL</li>
+      <li>TEST_ENV: Target environment (dev, staging, production)</li>
+      <li>USERNAME: Test user credentials</li>
+      <li>PASSWORD: Test user password</li>
+    </ul>
+
+    <div class="warning">
+      <strong>Security Note</strong>: Never commit .env file to version control.
+    </div>
+
+    <h3>Test Data Management</h3>
+    <p><strong>lib/utils/testData.ts</strong> provides helpers:</p>
+    <pre><code>const email = uniqueEmail();
+const username = randomString(10);
+const testData = readJson('./data/users.json');</code></pre>
+
+    <hr />
+
+    <h2 id="test-execution">Test Execution</h2>
+
+    <h3>Running Tests</h3>
+    <pre><code># Run all tests
+npm test
+
+# Run tests in Chromium only
+npm run test:chromium
+npx playwright test --project=chromium
+
+# Run FusionWW tests
+npx playwright test tests/fusionww
+
+# Run with custom base URL
+BASE_URL=https://www.fusionww.com/ npx playwright test
+
+# Run in headed mode
+npx playwright test --headed
+
+# Run in debug mode
+npx playwright test --debug
+
+# Run by tag
+npx playwright test --grep @smoke</code></pre>
+
+    <h3>Test Reports</h3>
+    <p>View HTML report:</p>
+    <pre><code>npx playwright show-report</code></pre>
+
+    <hr />
+
+    <h2 id="registration-flow-testing">
+      Registration Flow Testing (FUS-2/FUS-3)
+    </h2>
+
+    <h3>Test Scenario Overview</h3>
+    <p>
+      The registration flow tests validate the complete user journey from
+      landing page to registration form completion.
+    </p>
+
+    <h3>Detailed Test Steps</h3>
+
+    <h4>Step 1: Navigate to the Website</h4>
+    <p>Navigate to FusionWW homepage using configured BASE_URL.</p>
+
+    <h4>Step 2: Verify Landing Page</h4>
+    <p>Confirm URL, page title, and essential elements are visible.</p>
+
+    <h4>Step 3: Accept Cookies</h4>
+    <p>Handle cookie consent banner if present.</p>
+
+    <h4>Step 4: Open Registration Modal</h4>
+    <p>Trigger registration modal via account/registration entry point.</p>
+
+    <h4>Step 5: Verify Modal Elements</h4>
+    <p>Assert account button, register button, and modal title are visible.</p>
+
+    <h4>Step 6: Click Modal Title (Optional)</h4>
+    <p>Validate modal header interactions.</p>
+
+    <h4>Step 7: Click "Register Now" Button</h4>
+    <p>Proceed to registration form view.</p>
+
+    <h4>Step 8: Fill in Registration Form</h4>
+    <p>Complete all required fields:</p>
+    <ul>
+      <li>First Name: Valid name format</li>
+      <li>Last Name: Valid name format</li>
+      <li>Email Address: Use uniqueEmail() for isolation</li>
+      <li>Geographical Region: Select from dropdown (e.g., "Americas")</li>
+      <li>Password: Meet complexity requirements</li>
+      <li>Confirm Password: Must match password</li>
+    </ul>
+
+    <h4>Step 9: Verify Input Fields</h4>
+    <p>Verify:</p>
+    <ul>
+      <li>Field values are correctly populated</li>
+      <li>Input visibility and enabled state</li>
+      <li>No validation errors for valid inputs</li>
+      <li>Geographical region displays correct value</li>
+    </ul>
+
+    <h4>Step 10: Close Modal</h4>
+    <p>Dismiss modal and verify:</p>
+    <ul>
+      <li>Modal closes successfully</li>
+      <li>Page state is preserved</li>
+      <li>No console errors logged</li>
+    </ul>
+
+    <h3>Validation Guidelines</h3>
+    <ul>
+      <li>Validate geographical region via displayed button value</li>
+      <li>Focus on visible state over timing-dependent checks</li>
+      <li>Test both valid and invalid inputs</li>
+      <li>Verify state preservation when reopening modal</li>
+    </ul>
+
+    <h3>Important Notes</h3>
+    <ul>
+      <li>Always use uniqueEmail() for test isolation</li>
+      <li>Include negative test cases for validation errors</li>
+      <li>Use POM methods instead of direct Playwright API calls</li>
+      <li>Monitor console errors with toHaveNoConsoleErrors matcher</li>
+      <li>Consider accessibility checks for WCAG compliance</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="best-practices">Best Practices</h2>
+
+    <h3>Code Quality</h3>
+
+    <h4>Async/Await Patterns</h4>
+    <ul>
+      <li>Use async/await with explicit waits tied to UI state</li>
+      <li>Avoid fixed timeouts like page.waitForTimeout()</li>
+    </ul>
+
+    <h4>Resilient Selectors</h4>
+    <p>Selector priority:</p>
+    <ol>
+      <li>Data attributes: <code>[data-testid="register-button"]</code></li>
+      <li>
+        Role selectors:
+        <code>page.getByRole('button', { name: 'Register' })</code>
+      </li>
+      <li>Text content: <code>page.getByText('Register Now')</code></li>
+      <li>CSS selectors: <code>button.register-btn</code> (use sparingly)</li>
+    </ol>
+
+    <h3>Architecture Patterns</h3>
+
+    <h4>Method Signatures</h4>
+    <ul>
+      <li>POM methods return Promise&lt;void&gt;</li>
+      <li>Avoid hard-coded delays</li>
+    </ul>
+
+    <h4>Centralized Configuration</h4>
+    <ul>
+      <li>Store config and test data centrally</li>
+      <li>Never hardcode secrets or environment values</li>
+    </ul>
+
+    <h4>Fixtures Over Hooks</h4>
+    <ul>
+      <li>Use fixtures for object creation</li>
+      <li>Better test isolation and parallel execution</li>
+    </ul>
+
+    <h3>Testing Strategies</h3>
+    <ul>
+      <li><strong>Test Independence</strong>: Each test runs independently</li>
+      <li><strong>Data Cleanup</strong>: Clean up test data after execution</li>
+      <li><strong>Error Handling</strong>: Include proper error handling</li>
+      <li>
+        <strong>Test Documentation</strong>: Use descriptive names and comments
+      </li>
+      <li><strong>Assertion Specificity</strong>: Use specific assertions</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+
+    <h3>Common Issues</h3>
+
+    <h4>Flaky Tests</h4>
+    <ul>
+      <li>Use proper wait strategies</li>
+      <li>Verify stable selectors</li>
+      <li>Check for race conditions</li>
+      <li>Add explicit waits for network requests</li>
+    </ul>
+
+    <h4>Environment Issues</h4>
+    <ul>
+      <li>Confirm .env configuration</li>
+      <li>Verify BASE_URL is correct</li>
+      <li>Check environment variables are set</li>
+      <li>Validate network access</li>
+    </ul>
+
+    <h4>Modal Interaction Failures</h4>
+    <ul>
+      <li>Check for overlay elements blocking clicks</li>
+      <li>Ensure animations complete before interactions</li>
+      <li>Verify z-index stacking</li>
+      <li>Wait for modal 'visible' state</li>
+    </ul>
+
+    <h4>Console Error Detection</h4>
+    <ul>
+      <li>Review browser console output</li>
+      <li>Filter known warnings</li>
+      <li>Configure error matcher patterns</li>
+      <li>Check third-party script errors</li>
+    </ul>
+
+    <h4>CI/CD Pipeline Failures</h4>
+    <ul>
+      <li>Ensure browsers installed in CI</li>
+      <li>Verify environment variables in CI</li>
+      <li>Check timezone differences</li>
+      <li>Increase timeouts for CI</li>
+      <li>Review CI logs for constraints</li>
+    </ul>
+
+    <h3>Debug Commands</h3>
+    <pre><code># Headed mode
+npx playwright test --headed
+
+# Debug mode
+npx playwright test --debug
+
+# Generate traces
+npx playwright test --trace on
+
+# View traces
+npx playwright show-trace trace.zip
+
+# Verbose output
+npx playwright test --reporter=line</code></pre>
+
+    <hr />
+
+    <h2>Conclusion</h2>
+    <p>
+      This framework provides a robust foundation for FusionWW test automation.
+      By following established patterns and best practices, teams can create
+      reliable, readable tests that validate application behavior across
+      browsers and environments.
+    </p>
+
+    <hr />
+
+    <div class="highlight">
+      <p>
+        <strong>Document Version</strong>: 1.0<br />
+        <strong>Last Updated</strong>: October 2025<br />
+        <strong>Framework Version</strong>: Playwright ^1.40.0
+      </p>
+    </div>
+
+    <script>
+      // Add smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
+

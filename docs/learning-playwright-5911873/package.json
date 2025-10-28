@@ -1,0 +1,22 @@
+{
+  "name": "learning-playwright-5911873",
+  "version": "1.0.0",
+  "description": "A Playwright test suite for the FusionWW application, covering registration, login, and homepage functionalities.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:chromium": "playwright test --project=chromium",
+    "test:first": "playwright test --project=first",
+    "test:local": "cross-env BASE_URL=http://localhost:4200 playwright test",
+    "test:report": "playwright show-report",
+    "test:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "playwright": "^1.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
